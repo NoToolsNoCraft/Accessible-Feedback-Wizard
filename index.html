@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessible Feedback Wizard</title>
+  <style>
+    /* Base styles remain the same */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #222;
+}
+header, footer {
+  background: #fffab7;
+  color: rgb(0, 0, 0);
+  padding: 1em;
+  text-align: center;
+}
+nav {
+  background: #0055aa;
+  padding: 0.5em;
+  text-align: center;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+nav a:not(:last-child) {
+  margin-right: 2em;
+}
+#about, #about2 {
+  margin: auto 4rem;
+}
+
+.top-banner-container {
+    width: 100%; /* Make the container span the full width */
+    /* You can add other container styles here if needed, like centering */
+  }
+
+  .top-banner {
+    width: 100%; /* Make the banner fill the container width */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .top-banner img {
+    display: block; /* Remove any extra space below the image */
+    width: 100%;
+    height: auto;
+  }
+
+
+
+main {
+  max-width: 600px;
+  margin: 2em auto;
+  background: white;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.intro, .testing-guide {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 3em;
+}
+.intro div, .testing-guide div {
+  flex: 1;
+}
+.step {
+  display: none;
+}
+.step.active {
+  display: block;
+}
+button {
+  background: #0055aa;
+  color: white;
+  border: none;
+  padding: 0.75em 1.5em;
+  margin: 1em 0.5em 0 0;
+  cursor: pointer;
+}
+button:focus {
+  outline: 3px solid #ffa500;
+}
+label {
+  display: block;
+  margin-top: 1em;
+}
+input[type="text"], input[type="email"], textarea {
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 0.25em;
+}
+.hidden {
+  display: none;
+}
+.progress {
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5em;
+}
+.checkbox-group input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+h2 {
+  text-align: center;
+}
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 0.25em;
+  display: none; /* Hide initially */
+}
+.error-message.visible {
+  display: block; /* Show when needed */
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  nav a {
+    display: block;
+    margin: 0.5em 0;
+    font-size: 1em;
+  }
+
+  #about, #about2 {
+    margin: 1rem;
+  }
+
+  .intro, .testing-guide {
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  main {
+    margin: 1em;
+    padding: 1.5em;
+  }
+
+  button {
+    width: 100%;
+    margin: 1em 0 0 0;
+  }
+
+  .checkbox-group label {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Accessible Feedback Wizard</h1>
+  </header>
+  <nav>
+    
+    <a href="#about">About</a>
+    <a href="#appComponent">App</a>
+    <a href="#about2">European Accessibility Act (EEA)</a>
+  </nav>
+
+  <div class="top-banner-container">
+    <div role="banner" aria-label="Accessible Feedback Wizard - Providing Inclusive Digital Experiences" class="top-banner">
+      <img
+        src="accessibility banner.png"
+        alt="The Accessible Feedback Wizard logo featuring stylized checkmarks forming a circle, overlaid on a gradient background transitioning from light blue to green. The text 'Accessible Feedback Wizard' is prominently displayed in a clear, sans-serif font, accompanied by the tagline 'Providing Inclusive Digital Experiences' in a smaller, complementary font."
+        width="1500"
+        height="500"
+      />
+    </div>
+  </div>
+
+  <div id="about" role="banner" aria-label="Information about the app"> 
+    <section class="intro">
+      <div>
+        <h2>About This App</h2>
+        <p>This feedback wizard was developed specifically for accessibility testing and education. It demonstrates key aspects of inclusive web design and allows testers to verify accessibility compliance against the European Accessibility Act (EEA).</p>
+      </div>
+      <div>
+        <h2>Accessibility Testing Checklist (EEA)</h2>
+        <ul>
+          <li>✅ Screen reader compatibility (NVDA, VoiceOver)</li>
+          <li>✅ Keyboard-only navigation (Tab/Shift+Tab, Enter, Esc)</li>
+          <li>✅ Focus visibility and logical tab order</li>
+          <li>✅ Color contrast: 4.5:1 for text, 3:1 for large text/icons</li>
+          <li>✅ Proper HTML semantics: headings, lists, buttons, forms</li>
+          <li>✅ ARIA roles used only when necessary</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="testing-guide">
+      <div>
+        <h2>How to Test Accessibility</h2>
+        <ol>
+          <li><strong>Screen Reader:</strong> Use NVDA (Windows) or VoiceOver (Mac) to navigate the app. Ensure each label is read correctly and in logical order.</li>
+          <li><strong>Keyboard Navigation:</strong> Press Tab to move forward, Shift+Tab to go backward. Ensure all interactive elements can be reached, activated (with Enter), and exited (with Esc if applicable).</li>
+          <li><strong>Focus Order:</strong> Check that tabbing follows a logical order. Ensure visible focus outlines appear on all elements.</li>
+          <li><strong>Color Contrast:</strong> Use a color contrast checker to ensure text has at least 4.5:1 contrast ratio, and large text/icons 3:1.</li>
+          <li><strong>HTML Semantics:</strong> Inspect the page structure for correct usage of headings (h1–h3), labeled buttons, fieldsets, legends, lists, and form inputs.</li>
+          <li><strong>ARIA Usage:</strong> Verify that ARIA roles are used sparingly and only to enhance, not replace, native HTML semantics.</li>
+          <li><strong>Error Handling:</strong> Test form validation using invalid input. Ensure users are guided to errors using screen reader announcements and keyboard focus.</li>
+          <li><strong>Responsive Design:</strong> Zoom to 200% and test layout readability. Use screen reader with zoomed text.</li>
+        </ol>
+      </div>
+      <div>
+        <h2>Recommended Tools</h2>
+        <ul>
+          <li>✅ NVDA or JAWS (Windows)</li>
+          <li>✅ VoiceOver (macOS, iOS)</li>
+          <li>✅ Axe DevTools (browser extension)</li>
+          <li>✅ WAVE Tool (WebAIM)</li>
+          <li>✅ Color Contrast Analyzer (TPG)</li>
+          <li>✅ Lighthouse Audit (Chrome DevTools)</li>
+        </ul>
+      </div>
+    </section>
+</div>
+    <main>
+    <h2 id="appComponent">Submit your feedback</h2>
+    <div class="progress" aria-live="polite" id="progress">Step 1 of 5</div>
+    <form id="feedbackForm" novalidate>
+      <section class="step active" id="step1">
+        <h3>Your Details</h3>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required aria-invalid="true" aria-describedby="name-error">
+        <p id="name-error" class="error-message" aria-live="assertive">Please enter your name.</p>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required aria-invalid="true" aria-describedby="email-error">
+        <p id="email-error" class="error-message" aria-live="assertive">Please enter a valid email address.</p>
+
+      </section>
+
+      <section class="step" id="step2">
+        
+        <h3>Rate Your Experience</h3>
+        <fieldset>
+          <legend>How satisfied are you?</legend>
+          <label><input type="radio" name="rating" value="1" required /> 1</label>
+          <label><input type="radio" name="rating" value="2" /> 2</label>
+          <label><input type="radio" name="rating" value="3" /> 3</label>
+          <label><input type="radio" name="rating" value="4" /> 4</label>
+          <label><input type="radio" name="rating" value="5" /> 5</label>
+        </fieldset>
+        <p id="rating-error" class="error-message" aria-live="assertive"></p>
+      </section>
+
+      <section class="step" id="step3">
+        
+        <h3>What Did You Like?</h3>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="features" value="design" /> Design</label>
+          <label><input type="checkbox" name="features" value="usability" /> Usability</label>
+          <label><input type="checkbox" name="features" value="content" /> Content</label>
+          <label><input type="checkbox" name="features" value="speed" /> Speed</label>
+        </div>
+        <p id="features-error" class="error-message" aria-live="assertive"></p>
+      </section>
+
+      <section class="step" id="step4">
+        <h3>Comments</h3>
+        <label for="comments">Additional Feedback:</label>
+        <textarea id="comments" name="comments"></textarea>
+      </section>
+
+      <section class="step" id="step5">
+        <h3>Submit</h3>
+        <p>Review your answers and click submit.</p>
+        <button type="submit">Submit Feedback</button>
+      </section>
+
+      <div>
+        <button type="button" id="prevBtn">Previous</button>
+        <button type="button" id="nextBtn">Next</button>
+      </div>
+    </form>
+    <div id="confirmation" class="hidden" role="alert">
+      <h3>Thank you for your feedback!</h3>
+      <p>Your response has been recorded.</p>
+    </div>
+  </main>
+
+  <div id="about2" role="banner" aria-label="Information about the European Accessibility Act (EEA)"> 
+    <section class="intro">
+      <div>
+        <h2>About the European Accessibility Act (EEA)</h2>
+        <p>The European Accessibility Act (EEA) is a landmark directive introduced by the European Union to ensure that key digital products and services are accessible to all users, including people with disabilities. Enacted in 2019 and coming into force in full by June 28, 2025, the EEA aims to harmonize accessibility standards across EU member states, reduce market fragmentation, and enhance the inclusion of people with disabilities in the digital economy.</p>
+        <p>The EEA applies to a wide range of services and products, including e-commerce platforms, banking services, e-books, ticketing systems, ATMs, smartphones, and public websites and mobile apps. It requires that these services meet specific accessibility criteria to be usable by people with visual, auditory, cognitive, and motor impairments.</p>
+      </div>
+      <div>
+        <h2>Why EEA Implementation Matters</h2>
+        <ul>
+          <li>✅ Establishes a unified legal standard for digital accessibility across the EU.</li>
+          <li>✅ Encourages inclusive design practices in both public and private sectors.</li>
+          <li>✅ Opens digital services to a wider audience, including 100+ million people in the EU with disabilities.</li>
+          <li>✅ Reduces compliance complexity for businesses operating in multiple EU countries.</li>
+          <li>✅ Enhances user experience for all users, not just those with disabilities.</li>
+        </ul>
+      </div>
+    </section>
+  
+    <section class="testing-guide">
+      <div>
+        <h2>What the EEA Brings to Web Accessibility</h2>
+        <ol>
+          <li><strong>Mandatory Standards:</strong> Aligns digital accessibility with the international WCAG 2.1 AA guidelines, making them enforceable under EU law.</li>
+          <li><strong>Broader Scope:</strong> Covers not just public sector websites (like previous EU directives) but also private businesses offering digital services to consumers.</li>
+          <li><strong>Accessibility by Design:</strong> Promotes accessibility from the earliest design stages, rather than as an afterthought or optional feature.</li>
+          <li><strong>Assistive Technology Compatibility:</strong> Requires compatibility with screen readers, voice recognition software, magnifiers, and other tools.</li>
+          <li><strong>Functional Requirements:</strong> Includes specific requirements for perceivability, operability, understandability, and robustness of digital content.</li>
+          <li><strong>Enforcement and Penalties:</strong> EU member states are required to enforce compliance, with penalties for non-conformance starting in mid-2025.</li>
+        </ol>
+      </div>
+      <div>
+        <h2>How to Prepare for EEA Compliance</h2>
+        <ul>
+          <li>✅ Conduct accessibility audits using tools like Axe, WAVE, and Lighthouse.</li>
+          <li>✅ Involve users with disabilities in usability testing to uncover real-world barriers.</li>
+          <li>✅ Train developers and designers on WCAG 2.1 and accessible UX/UI principles.</li>
+          <li>✅ Use semantic HTML and ARIA roles appropriately.</li>
+          <li>✅ Document accessibility features and provide feedback channels for users.</li>
+          <li>✅ Ensure all forms, documents, and navigation can be used with assistive tech and keyboard only.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  
+
+  <footer>
+    <p>The app was created by:<a href="https://www.linkedin.com/in/petar-skrbic/" target="_blank">Petar Škrbić</a></p>
+    <p>&copy; 2025 Feedback Wizard</p>
+  </footer>
+  <script>
+    const steps = document.querySelectorAll(".step");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const form = document.getElementById("feedbackForm");
+    const confirmation = document.getElementById("confirmation");
+    const progress = document.getElementById("progress");
+    let currentStep = 0;
+  
+    function showStep(index) {
+      steps.forEach((step, i) => {
+        step.classList.toggle("active", i === index);
+      });
+      progress.textContent = `Step ${index + 1} of 5`;
+      prevBtn.style.display = index === 0 ? "none" : "inline-block";
+      nextBtn.style.display = index === steps.length - 1 ? "none" : "inline-block";
+    }
+  
+    function validateStep(index) {
+  const step = steps[index];
+  const inputs = step.querySelectorAll("input, textarea");
+  let valid = true;
+
+  // Text/email/textarea input validation
+  inputs.forEach(input => {
+    const errorId = input.id + "-error";
+    const errorElement = document.getElementById(errorId);
+
+    if (input.required && input.value.trim() === "") {
+      valid = false;
+      input.setAttribute("aria-invalid", "true");
+      if (errorElement) {
+        errorElement.textContent = "This field is required.";
+        errorElement.classList.add("visible");
+        input.setAttribute("aria-describedby", errorId);
+      }
+    } else if (
+      input.type === "email" &&
+      input.value.trim() !== "" &&
+      !isValidEmail(input.value)
+    ) {
+      valid = false;
+      input.setAttribute("aria-invalid", "true");
+      if (errorElement) {
+        errorElement.textContent = "Please enter a valid email address.";
+        errorElement.classList.add("visible");
+        input.setAttribute("aria-describedby", errorId);
+      }
+    } else {
+      input.removeAttribute("aria-invalid");
+      if (errorElement) {
+        errorElement.textContent = "";
+        errorElement.classList.remove("visible");
+        input.removeAttribute("aria-describedby");
+      }
+    }
+  });
+
+  // Radio group validation (Step 2)
+  if (step.querySelector('input[type="radio"]')) {
+    const radios = step.querySelectorAll('input[type="radio"]');
+    const name = radios[0].name;
+    const checked = step.querySelector(`input[name="${name}"]:checked`);
+    const errorElement = document.getElementById("rating-error");
+
+    if (!checked) {
+      valid = false;
+      if (errorElement) {
+        errorElement.textContent = "Please select a rating.";
+        errorElement.classList.add("visible");
+      }
+    } else {
+      if (errorElement) {
+        errorElement.textContent = "";
+        errorElement.classList.remove("visible");
+      }
+    }
+  }
+
+  // Checkbox group validation (Step 3)
+  if (step.querySelector('.checkbox-group')) {
+    const checkboxes = step.querySelectorAll('.checkbox-group input[type="checkbox"]');
+    const checked = Array.from(checkboxes).some(cb => cb.checked);
+    const errorElement = document.getElementById("features-error");
+
+    if (!checked) {
+      valid = false;
+      if (errorElement) {
+        errorElement.textContent = "Please select at least one feature.";
+        errorElement.classList.add("visible");
+      }
+    } else {
+      if (errorElement) {
+        errorElement.textContent = "";
+        errorElement.classList.remove("visible");
+      }
+    }
+  }
+
+  return valid;
+}
+
+
+// You'll need a isValidEmail function
+function isValidEmail(email) {
+  // Basic email validation regex
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+  
+    nextBtn.addEventListener("click", () => {
+      if (validateStep(currentStep)) {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      }
+    });
+  
+    prevBtn.addEventListener("click", () => {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+  
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      form.style.display = "none";
+      confirmation.classList.remove("hidden");
+    });
+  
+    showStep(currentStep);
+  </script>
+  
+</body>
+</html>
